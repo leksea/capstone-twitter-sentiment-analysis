@@ -1,0 +1,62 @@
+# macOS-specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# macOS file resource forks
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Python-related
+__pycache__/
+*.so
+.Python
+.env
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Jupyter Notebook output files
+*.nbconvert.ipynb
+*.nb.html
+
+# Configurations and settings
+*.config
+*.settings
+
+# Ignore large data files
+*.sqlite3
+*.db
+*.csv
+*.tsv
+*.parquet
+*.h5
+*.hdf5
+*.pickle
+*.pkl
+
+# Temp files
+*.tmp
+*.temp
+*.~*
+*.swp
+*.swo
+*.bak
+
+# IDE configurations
+.idea/
+.vscode/
+*.iml
