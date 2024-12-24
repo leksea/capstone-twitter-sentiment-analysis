@@ -4,12 +4,10 @@ seaborn
 pandas
 numpy
 branca
-os
-string
-re
-mpl_toolkits.basemap
+cartopy
 requests
 folium
 nltk
+pillow
 wordcloud
 tqdm
