@@ -3,4 +3,13 @@ scipy
 seaborn
 pandas
 numpy
-
+branca
+os
+string
+re
+mpl_toolkits.basemap
+requests
+folium
+nltk
+wordcloud
+tqdm
