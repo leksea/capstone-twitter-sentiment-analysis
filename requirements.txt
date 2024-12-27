@@ -13,3 +13,4 @@ wordcloud
 tqdm
 emot
 geopy
+tqdm
