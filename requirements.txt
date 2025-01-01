@@ -19,3 +19,4 @@ emoji
 networkx
 ipython
 transformers
+torch
