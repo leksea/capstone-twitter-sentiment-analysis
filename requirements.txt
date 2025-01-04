@@ -20,5 +20,3 @@ networkx
 ipython
 transformers
 torch
-cupy
-cuml
