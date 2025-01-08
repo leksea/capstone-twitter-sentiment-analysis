@@ -2,18 +2,18 @@
 
 # Table of Contents
 - [1. Repository Structure](#1-repository-structure)
-- [2. Business Problem Overview](#2-business-problem-overview)
-- [3. Proposed Solution](#3-proposed-solution)
+- [2. Project Overview](#2-project-overview)
+- [3. Business Problem Overview](#3-business-problem-overview)
 - [4. Datasets Download Links and Notebook Requirements](#4-datasets-download-links-and-notebook-requirements)
-- [5. Datasets EDA and Cleaning](#5-datasets-eda-and-cleaning)
+- [5. Dataset EDA and Cleaning](#5-datasets-eda-and-cleaning)
 - [6. Data Transformation For Classification](#6-data-transformation-for-classification)
 - [7. Modelling](#7-modelling)
 - [8. Results](#8-results)
 - [9. Conclusion](#9-conclusion)
-- [10. Slides](#10-slides)
+- [10. Link to Slides](#10-slides)
 
 
-### Structure.
+### 1. Structure.
 
 ```plaintext
 .
@@ -53,7 +53,7 @@
 ```
 # Twitter Sentiment Analysis of Public Reaction to COVID-19 News
 
-**Project Overview:**
+## 2. Project Overview 
 
 This project aims to analyze a large dataset of COVID-19-related tweets to understand how public sentiment evolves and spreads in response to news announcements and events. By leveraging natural language processing (NLP) techniques and sentiment analysis models, we seek to gain valuable insights into online conversations surrounding the pandemic dynamics.
 
@@ -69,7 +69,7 @@ Understanding public sentiment during a global crisis like the COVID-19 pandemic
 This project contributes to this understanding by providing a comprehensive analysis of Twitter data, revealing trends and patterns in public sentiment related to COVID-19.
 
 
-## Business Problem and Objectives
+## 3. Business Problem and Objectives
 
 **Problem Statement:**
 
@@ -89,7 +89,7 @@ Media outlets and public health organizations need to better understand how thei
 - To potentially identify key influencers and networks driving sentiment on Twitter.
 
 
-## Data Acquisition and Preparation
+## 4. Datasets Download Links and Notebook Requirements
 
 **Data Sources:**
 
@@ -98,38 +98,95 @@ The dataset can be accessed and downloaded from the following Kaggle page:  [Cov
 You have to download the dataset and extract it into the `Data` directory or upload it into the cloud and directly specify the `data_dir` at the beginning of the 2.5 section of the notebook. 
 
 2. **Pre-trained GloVe embeddings** from Stanford NLP. These word embeddings capture semantic relationships between words and can improve the performance of NLP models, which can be obtained from the [Stanford NLP website](https://nlp.stanford.edu/projects/glove/). The notebook will look for the specific file `glove.twitter.27B.200d.txt` inside the `data_dir`. If the precompiled embedding file is not found, the entire embedding package will be downloaded and extracted. The embedding files are several gigabytes each and upload might take some time.
-3. 
-   
 
-## Methodology
+**Notebook Requirements:**
 
-1. **Data Cleaning and Preprocessing:** 
+1. [Required modules](requirements.txt) listed in text file, notebook will download and install required modules based on the list.
+2. Execution time can be as long as 2-3 hours, depending on the environment. Highly recommend utilizing the pre-computed coordinate caches and saving the text pre-processing steps, as outlined in the notebook code.
+3. Storage required for  pre-computed embeddings is ~2.06 Gb. In addition, heatmap.
+
+
+## 5. Dataset EDA and Cleaning
+
+**Sections 2.6 - 2.12 Summary**
+
+These sections focus on the initial data exploration, cleaning, and feature extraction steps. The notebook is focused on performing sentiment analysis of tweets related to Covid-19. The main goal of this part of the notebook is to extract relevant data, prepare it, and perform exploratory data analysis (EDA).
+
+Here's a breakdown:
+
+*   **2.6 Basic Data Understanding:** This is the preliminary stage of data exploration, where you would examine the dataset's structure, such as the number of rows and columns (shape), column names, and data types.
+*   **2.7 Data Cleaning and EDA: Date:** This section involves extracting date-related information from the tweets and analyzing temporal trends. This could include examining tweet volume over time, identifying peak activity periods.
+![Alt Text](Images/Dates_Dist_2.7.png)  
+*   **2.8 Data Cleaning and EDA: Language:** Here, the notebook would focus on handling the language aspect of the tweets. This might involve identifying the dominant languages in the dataset, filtering for a specific language (e.g., English), or performing language-specific preprocessing.
+*   **2.9 Data Cleaning and EDA: Location:** This step involves working with the location data associated with the tweets. The notebook defines functions to standardize location data (e.g., converting free-form text to city/state/country format), geocode locations to obtain coordinates, and create visualizations on maps. There are also functions to cache the location and coordinate data.
+*   **2.10 Data Cleaning and EDA: Source:** This involves identifying and analyzing the different platforms (e.g., Twitter for Android, Twitter for iPhone, Twitter Web App) from which the tweets were posted. The notebook defines a function to extract the source from HTML code.
+*   **2.11 Data Cleaning and EDA: Sentiment:** This section deals with the sentiment labels associated with the tweets. The goal here is to explore the distribution of sentiment categories (e.g., positive, negative, neutral) and understand their prevalence in the dataset.
+![Alt Text](Images/Sentiment_Dist_4.1.png)      
+*   **2.12 Exploratory Data Analysis (EDA): Social Connections:** The main purpose of this part is to investigate the social connections and interactions within the Twitter data. This will involve analyzing user mentions (who mentions whom), retweets (who retweets whom), and possibly building network graphs to visualize these relationships.
+
+**In essence:** Sections 2.6 through 2.12 are about getting to know the data, cleaning up inconsistencies, and performing basic analysis to start uncovering patterns and insights. In this notebook, there is a special focus on dealing with dates, language, location, and source, which are common challenges in any dataset that involves user-generated content on a social media platform.
+
+## 6. Data Transformation For Classification
+
+**Data Cleaning and Preprocessing:** 
    - Cleaned the raw tweet data by removing noise, special characters, links, mentions, and hashtags.
    - Preprocessed the text data by tokenizing, lemmatizing, and removing stop words.
-   - Extracted relevant features for sentiment analysis.
+   - Extracted relevant features for sentiment analysis: used N-grams, Bag-of-Words, GloVe embeddings, TFIDF.
+**Top 10 N-Grams By Sentiment: ** 
+![N-Grams By Sentiment](Images/N-Grams_3.1.png)      
+     
+**Top 20 TF-IDF:**
+![TFIDF](Images/TFIDF_3.1.png)      
+  
+## 7. Modelling 
 
-2. **Sentiment Analysis:**
+**Methods**
+
+*Features X: 170.000 x 10200
+*Target y: Sentiment Category (Negative, Neutral, Positive).
+*Data Split: Train (70%) – Test (15%) –Validate(15%) 
+
+**Sentiment Classification:** 
+ - Base model: Logistic Regression, 91% weighted accuracy.
+ - Optimization: feature reduction using XGB model's top 1000 feaures.
+ - Best model selection: use `GridSearchCV` to establish best parameters.
+ - Best model's weighted accuracy: 94%
+   
+Performance Metric:  weighted presicion.
+![Confusion Matrix](Images/CM_4.6.png)
+
+**Top 10 features for each sentiment:**
+![Confusion Matrix](Images/0_Features_4.7.png)
+![Confusion Matrix](Images/1_Features_4.7.png)
+![Confusion Matrix](Images/2_Features_4.7.png)
+
+
+## 8. Results
+
+**Sentiment Analysis:**
    - Applied sentiment analysis models to classify tweets as positive, negative, or neutral.
    - Trained and evaluated the performance of different sentiment analysis models.
 
-3. **Visualization and Interpretation:**
+**Visualization and Interpretation:**
    - Visualized the sentiment analysis results to understand trends and patterns.
    - Interpreted the findings to provide actionable insights.
 
 
-## Conclusion
+## 9. Conclusion
 
-xx~~Summarize the key findings and insights obtained from the sentiment analysis. Discuss the implications of the results for understanding public reaction to COVID-19 news on Twitter.
+**Final Model Evaluation**
 
+ - The model performs reliably across various conditions when faced with new or unseen data. The goal is for the model to remain accurate over time.
+ - Model outputs (sentiment classifications, trends, key themes) can be considered reliable for decision-making. Public health officials can use this data to gauge public response to health policies and modify communication strategies accordingly. Media outlets can use it to understand how their coverage is perceived. Influencer Identification: If the model can identify key influencers accurately, this can help organizations target their messages better. Misinformation Spread: The model can detect and identify keywords associated with misinformation spread and address it.
 
-## Future Work
+**Future Work**
 
-xx~~Outline potential directions for future research and development, such as:
+- Exploring more advanced NLP techniques for sentiment analysis, like BERT embeddings
+- Aplpying mode granular sentiment classification
+- Using CNN
 
-- Exploring more advanced NLP techniques for sentiment analysis.
-- Investigating the impact of specific news events on sentiment.
-- Identifying key influencers and networks driving sentiment on Twitter.
+## 10. Slides
 
-
+[Slide Deck Here](Slides.pdf)
 
 
