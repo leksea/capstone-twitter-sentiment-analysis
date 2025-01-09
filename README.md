@@ -156,9 +156,9 @@ Performance Metric:  weighted presicion.
 ![Confusion Matrix](Images/CM_4.6.png)
 
 **Top 10 features for each sentiment:**
-![Confusion Matrix](Images/0_Features_4.7.png)
-![Confusion Matrix](Images/1_Features_4.7.png)
-![Confusion Matrix](Images/2_Features_4.7.png)
+![Neg](Images/0_Features_4.7.png)
+![Neu](Images/1_Features_4.7.png)
+![Pos](Images/2_Features_4.7.png)
 
 
 ## 8. Results
