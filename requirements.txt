@@ -18,5 +18,4 @@ requests
 emoji
 networkx
 ipython
-transformers
-torch
+spacy
