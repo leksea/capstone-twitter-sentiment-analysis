@@ -18,4 +18,3 @@ requests
 emoji
 networkx
 ipython
-spacy
