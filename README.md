@@ -17,37 +17,36 @@
 
 ```plaintext
 .
-├── Data
+├── data
 │   ├── Covid-19 Twitter Dataset (Apr-Jun 2020).csv^^
 │   ├── Covid-19 Twitter Dataset (Apr-Jun 2021).csv^^
 │   ├── Covid-19 Twitter Dataset (Aug-Sep 2020).csv^^
 │   ├── coordinate_cache.json
 │   ├── glove.twitter.27B.200d.txt^^^
 │   ├── heatmap_city.html^
-│   ├── lemmatized_df.csv^
+│   ├── cleaned_text_df.csv
 │   ├── location_cache.json
-│   └── tweets_df_no_retweets.csv^
 ├── Images
-│   ├── CM_4.6.png
-│   ├── Features_4.7.png
-│   ├── N-Grams_3.1.png
-│   ├── Sentiment_Dist_4.1.png
-│   └── TFIDF_3.1.png
+│   ├── cm_4.6.png
+│   ├── xx_features_4.7.png
+│   ├── n-grams_3.1.png
+│   ├── sentiment_dist_4.1.png
+│   ├── dates_dist_2.7.png
+│   └── tf-idf_3.1.png
 ├── LICENSE
-├── Model
-│   ├── X_test.pkl^
-│   ├── X_train.pkl^
-│   ├── X_val.pkl^
-│   ├── trained_model.pkl
-│   ├── y_test.pkl^
-│   ├── y_train.pkl^
-│   └── y_val.pkl^
-├── Notebook.ipynb
+├── model
+│   ├── trained_base_model.pkl
+│   ├── trained_dt_model.pkl
+│   ├── trained_xgb_model.pkl
+│   ├── trained_sgd_model.pkl
+│   ├── trained_rf_model.pkl^
+│   └── trained_model.pkl
+├── notebook.ipynb
 ├── README.md
-├── Slides.pdf
+├── slides.pdf
 └── requirements.txt
 
-^ -- Optional data files saved/uploaded during the notebook execution after lengthy computations (recommended)!
+^ -- Data files saved/uploaded during the notebook execution after lengthy computations (recommended)!
 ^^ -- Data requires user download.
 ^^^ -- Data will be downloaded if not present. 
 ```
@@ -116,12 +115,12 @@ Here's a breakdown:
 
 *   **2.6 Basic Data Understanding:** This is the preliminary stage of data exploration, where you would examine the dataset's structure, such as the number of rows and columns (shape), column names, and data types.
 *   **2.7 Data Cleaning and EDA: Date:** This section involves extracting date-related information from the tweets and analyzing temporal trends. This could include examining tweet volume over time, identifying peak activity periods.
-![Alt Text](Images/Dates_Dist_2.7.png)  
+![Alt Text](images/dates_dist_2.7.png)  
 *   **2.8 Data Cleaning and EDA: Language:** Here, the notebook would focus on handling the language aspect of the tweets. This might involve identifying the dominant languages in the dataset, filtering for a specific language (e.g., English), or performing language-specific preprocessing.
 *   **2.9 Data Cleaning and EDA: Location:** This step involves working with the location data associated with the tweets. The notebook defines functions to standardize location data (e.g., converting free-form text to city/state/country format), geocode locations to obtain coordinates, and create visualizations on maps. There are also functions to cache the location and coordinate data.
 *   **2.10 Data Cleaning and EDA: Source:** This involves identifying and analyzing the different platforms (e.g., Twitter for Android, Twitter for iPhone, Twitter Web App) from which the tweets were posted. The notebook defines a function to extract the source from HTML code.
 *   **2.11 Data Cleaning and EDA: Sentiment:** This section deals with the sentiment labels associated with the tweets. The goal here is to explore the distribution of sentiment categories (e.g., positive, negative, neutral) and understand their prevalence in the dataset.
-![Alt Text](Images/Sentiment_Dist_4.1.png)      
+![Alt Text](images/sentiment_dist_4.1.png)      
 *   **2.12 Exploratory Data Analysis (EDA): Social Connections:** The main purpose of this part is to investigate the social connections and interactions within the Twitter data. This will involve analyzing user mentions (who mentions whom), retweets (who retweets whom), and possibly building network graphs to visualize these relationships.
 
 **In essence:** Sections 2.6 through 2.12 are about getting to know the data, cleaning up inconsistencies, and performing basic analysis to start uncovering patterns and insights. In this notebook, there is a special focus on dealing with dates, language, location, and source, which are common challenges in any dataset that involves user-generated content on a social media platform.
@@ -133,10 +132,10 @@ Here's a breakdown:
    - Preprocessed the text data by tokenizing, lemmatizing, and removing stop words.
    - Extracted relevant features for sentiment analysis: used N-grams, Bag-of-Words, GloVe embeddings, TFIDF.
 **Top 10 N-Grams By Sentiment: ** 
-![N-Grams By Sentiment](Images/N-Grams_3.1.png)      
+![N-Grams By Sentiment](images/n-grams_3.1.png)      
      
 **Top 20 TF-IDF:**
-![TFIDF](Images/TFIDF_3.1.png)      
+![TFIDF](images/if-idf_3.1.png)      
   
 ## 7. Modelling 
 
@@ -144,7 +143,7 @@ Here's a breakdown:
 
 *Features X: 170.000 x 10200
 *Target y: Sentiment Category (Negative, Neutral, Positive).
-*Data Split: Train (70%) – Test (15%) –Validate(15%) 
+*Data Split: Train (70%) – Test (15%) – Validate(15%) 
 
 **Sentiment Classification:** 
  - Base model: Logistic Regression, 91% weighted accuracy.
@@ -153,12 +152,12 @@ Here's a breakdown:
  - Best model's weighted accuracy: 94%
    
 Performance Metric:  weighted presicion.
-![Confusion Matrix](Images/CM_4.6.png)
+![Confusion Matrix](images/cm_4.6.png)
 
 **Top 10 features for each sentiment:**
-![Neg](Images/0_Features_4.7.png)
-![Neu](Images/1_Features_4.7.png)
-![Pos](Images/2_Features_4.7.png)
+![Neg](images/0_features_4.7.png)
+![Neu](images/1_features_4.7.png)
+![Pos](images/2_features_4.7.png)
 
 
 ## 8. Results
@@ -187,6 +186,6 @@ Performance Metric:  weighted presicion.
 
 ## 10. Slides
 
-[Slide Deck Here](Slides.pdf)
+[Slide Deck Here](slides.pdf)
 
 
